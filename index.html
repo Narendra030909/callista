@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday! 🎉</title>
+    <!-- Menggunakan Google Font yang lucu dan playful -->
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%, #fad0c4 100%);
+            font-family: 'Quicksand', sans-serif;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Hiasan background lucu (Balon/Bintang mengambang) */
+        .bubble {
+            position: absolute;
+            bottom: -50px;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            animation: rise 8s infinite ease-in;
+            z-index: 0;
+        }
+
+        @keyframes rise {
+            0% {
+                transform: translateY(0) scale(1);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-110vh) scale(1.5);
+                opacity: 0;
+            }
+        }
+
+        /* Container Utama */
+        .container {
+            text-align: center;
+            z-index: 10;
+            width: 100%;
+            max-width: 500px;
+            padding: 20px;
+        }
+
+        /* Halaman Tombol Start */
+        #start-screen {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        h1.welcome-text {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.5rem;
+            color: #fff;
+            text-shadow: 3px 3px 0px #ff6b8b;
+            margin-bottom: 20px;
+        }
+
+        .btn-start {
+            background-color: #ff4757;
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            font-size: 1.8rem;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 0 #b33939, 0 15px 20px rgba(0,0,0,0.2);
+            transition: all 0.1s ease;
+        }
+
+        .btn-start:active {
+            transform: translateY(6px);
+            box-shadow: 0 2px 0 #b33939, 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Halaman Galeri Foto */
+        #gallery-screen {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-happy {
+            font-family: 'Fredoka One', cursive;
+            font-size: 3rem;
+            color: #ff4757;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        .photo-frame {
+            width: 280px;
+            height: 350px;
+            background: white;
+            padding: 12px 12px 40px 12px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            position: relative;
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease;
+        }
+
+        .photo-frame:nth-child(even) {
+            transform: rotate(2deg);
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .title-birthday {
+            font-family: 'Fredoka One', cursive;
+            font-size: 2.8rem;
+            color: #2ed573;
+            text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1);
+            margin-top: 15px;
+            letter-spacing: 2px;
+            animation: bounce 1s infinite alternate 0.5s;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-8px); }
+        }
+
+        /* Indikator foto keberapa */
+        .counter {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #57606f;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Efek Balon Latar Belakang -->
+    <div class="bubble" style="left: 10%; width: 40px; height: 40px; animation-duration: 6s;"></div>
+    <div class="bubble" style="left: 30%; width: 25px; height: 25px; animation-duration: 9s; animation-delay: 2s;"></div>
+    <div class="bubble" style="left: 50%; width: 50px; height: 50px; animation-duration: 7s; animation-delay: 1s;"></div>
+    <div class="bubble" style="left: 70%; width: 30px; height: 30px; animation-duration: 8s; animation-delay: 3s;"></div>
+    <div class="bubble" style="left: 90%; width: 45px; height: 45px; animation-duration: 10s; animation-delay: 2s;"></div>
+
+    <div class="container">
+        <!-- TAMPILAN AWAL (START) -->
+        <div id="start-screen">
+            <h1 class="welcome-text">✨ Ada Sesuatu Buat Kamu! ✨</h1>
+            <button class="btn-start" onclick="startShow()">START 🚀</button>
+        </div>
+
+        <!-- TAMPILAN FOTO BERGANTI -->
+        <div id="gallery-screen">
+            <div class="title-happy">HAPPY</div>
+            
+            <div class="photo-frame">
+                <!-- Foto akan berganti di sini -->
+                <img id="slide-img" src="" alt="Foto Kenangan">
+            </div>
+
+            <div class="title-birthday">BIRTHDAY!</div>
+            <div class="counter" id="photo-counter">Foto 1 dari 15</div>
+        </div>
+    </div>
+
+    <script>
+        // DAFTAR 15 FOTO
+        // Ganti link di bawah ini dengan nama file foto kamu (misal: 'foto1.jpg', 'foto2.jpg', dst.)
+        // atau link gambar online.
+        const photos = [
+            "https://cdn.phototourl.com/member/2026-10-12-53f0db22-200e-496f-95d4-8f2dcfd1bda4.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-cedaf115-43af-4e11-ac48-d2ed3c4d3b41.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-e8288e29-ebb0-44cb-b462-700f97e221c6.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-03cb99c7-3a97-43a0-b8a8-ef1b042e6956.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-dab65b87-e8bc-4a0f-9c67-88f55be8cc23.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-9ca5b972-1267-42fa-930f-cc7e75b36a09.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-85c78a98-4f1a-493c-bc91-9b96b52f1b0b.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-f63203f9-92e7-4d2a-b039-a0dfdbc66128.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-2e6a2ca4-8684-4d82-ae35-2d71cb506898.jpg",
+            "https://cdn.phototourl.com/member/2026-10-12-0e7dfb29-dd96-48d9-90da-0ab3ac3f74d4.jpg",
+            "https://kommodo.ai/i/hXFTlPe4zmXPC2vXg7A8",
+            "https://kommodo.ai/i/lGxJUQQ31KshdzejnggO",
+            "https://kommodo.ai/i/q40ZpDwtPcL2ZrulrtJH",
+            "https://kommodo.ai/i/c9EyGI1793oTFu6wmxqD",
+            "https://kommodo.ai/i/2JKFqp6Ejlkt3HdtpBsC"
+        ];
+
+        let currentIndex = 0;
+        let slideInterval;
+
+        function startShow() {
+            // Sembunyikan layar awal, tampilkan layar galeri
+            document.getElementById('start-screen').style.display = 'none';
+            document.getElementById('gallery-screen').style.display = 'flex';
+
+            // Tampilkan foto pertama kali
+            updatePhoto();
+
+            // Mulai timer ganti foto setiap 2 detik (2000 milidetik)
+            slideInterval = setInterval(() => {
+                currentIndex++;
+                if (currentIndex >= photos.length) {
+                    currentIndex = 0; // Kembali ke foto pertama setelah selesai (looping)
+                }
+                updatePhoto();
+            }, 2000);
+        }
+
+        function updatePhoto() {
+            const imgElement = document.getElementById('slide-img');
+            const counterElement = document.getElementById('photo-counter');
+            
+            // Efek transisi sederhana
+            imgElement.style.opacity = 0;
+            setTimeout(() => {
+                imgElement.src = photos[currentIndex];
+                imgElement.style.opacity = 1;
+                counterElement.innerText = `Foto ${currentIndex + 1} dari ${photos.length}`;
+            }, 200);
+        }
+    </script>
+</body>
+</html>
